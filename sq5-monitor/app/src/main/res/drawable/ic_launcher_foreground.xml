@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A gauge: arc, red needle and hub, inside the 72dp adaptive icon safe zone. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:pathData="M33,68 A24,24 0 1,1 75,68"
+        android:strokeWidth="6"
+        android:strokeLineCap="round"
+        android:strokeColor="#FFE8EAED"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M54,54 L69,38"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:strokeColor="@color/accent"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M54,54 m-5,0 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0"
+        android:fillColor="@color/accent" />
+</vector>

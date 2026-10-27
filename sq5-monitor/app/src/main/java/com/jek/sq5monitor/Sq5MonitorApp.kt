@@ -1,0 +1,13 @@
+package com.jek.sq5monitor
+
+import android.app.Application
+
+class Sq5MonitorApp : Application() {
+    lateinit var container: AppContainer
+        private set
+
+    override fun onCreate() {
+        super.onCreate()
+        container = AppContainer(this)
+    }
+}

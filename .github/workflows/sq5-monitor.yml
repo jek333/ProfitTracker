@@ -1,0 +1,55 @@
+name: SQ5 Monitor (Android)
+
+on:
+  push:
+    paths:
+      - "sq5-monitor/**"
+      - ".github/workflows/sq5-monitor.yml"
+  pull_request:
+    paths:
+      - "sq5-monitor/**"
+      - ".github/workflows/sq5-monitor.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: sq5-monitor-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: sq5-monitor
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Protocol core tests
+        run: ./gradlew -p core test
+
+      - name: App unit tests, lint and APKs
+        run: ./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleRelease
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: sq5-monitor-apk
+          path: sq5-monitor/app/build/outputs/apk/release/app-release.apk
+          if-no-files-found: error
+
+      - name: Upload reports
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sq5-monitor-reports
+          path: |
+            sq5-monitor/app/build/reports/
+            sq5-monitor/core/build/reports/
