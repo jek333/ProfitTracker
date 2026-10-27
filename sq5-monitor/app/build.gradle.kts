@@ -38,12 +38,6 @@ android {
         compose = true
     }
 
-    lint {
-        // Print every finding in the build log so CI output is self-explanatory.
-        textReport = true
-        textOutput = file("stdout")
-    }
-
     packaging {
         resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
     }
