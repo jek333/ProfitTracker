@@ -11,6 +11,7 @@
         android:usesPermissionFlags="neverForLocation"
         tools:targetApi="s" />
     <!-- BLE scanning on Android 11 and older requires location permission. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" android:maxSdkVersion="30" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" android:maxSdkVersion="30" />
 
     <!-- Wi-Fi adapters. -->
