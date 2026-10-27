@@ -6,6 +6,7 @@ import com.jek.sq5monitor.core.obd.Signal
 import com.jek.sq5monitor.core.obd.UnitSystem
 import com.jek.sq5monitor.core.obd.Units
 import com.jek.sq5monitor.ui.components.GaugeModel
+import java.util.Locale
 
 fun Signal.display(value: Double, units: UnitSystem): DisplayValue = Units.display(value, quantity, units, decimals)
 
@@ -25,10 +26,14 @@ fun Signal.gauge(value: Double?, units: UnitSystem, alert: Boolean): GaugeModel 
         valueText = shown?.text,
         unit = unitLabel(units),
         fraction = value?.let { ((it - min) / (max - min)).toFloat().coerceIn(0f, 1f) } ?: 0f,
-        minText = Units.display(min, quantity, units, 0).text,
-        maxText = Units.display(max, quantity, units, 0).text,
+        minText = scaleLabel(min, units),
+        maxText = scaleLabel(max, units),
         alert = alert,
     )
 }
+
+/** Gauge scale ends are always whole numbers, whatever precision the value itself is shown with. */
+private fun Signal.scaleLabel(value: Double, units: UnitSystem): String =
+    String.format(Locale.US, "%.0f", Units.display(value, quantity, units, 0).value)
 
 private const val MAX_MPG = 40.0
